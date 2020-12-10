@@ -4,14 +4,19 @@
 #include <string>
 #include "person.h"
 #include "title.h"
+
 #include "departments.h"
-class Employee: public Person, public Title{
+
+
+class Departments{};
+
+class Employee: public Person{
 private:
 
     int emp_id;
     Person person;
     Title *title;
-    Department department;
+    Departments department;
     double salary;
     std::string startDate;
     double sumOvertime;
