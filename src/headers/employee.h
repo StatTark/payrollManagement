@@ -10,7 +10,7 @@ private:
 
     int emp_id;
     Person person;
-    Title title;
+    Title *title;
     Department department;
     double salary;
     std::string startDate;
