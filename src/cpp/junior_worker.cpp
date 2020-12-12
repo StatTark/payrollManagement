@@ -9,3 +9,11 @@ double JuniorWorker::getSumOfHoursM() const {
 std::string JuniorWorker::getTitle() const {
     return "Junior Worker";
 }
+
+void JuniorWorker::setPerHourCost(double  hour)  {
+    perHourCost = hour;
+}
+
+void JuniorWorker::setSumOfHoursM(double hour) {
+    sumHoursM = hour;
+}
