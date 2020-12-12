@@ -1,9 +1,14 @@
-#ifndef JUNIORWORKER_H
-#define JUNIORWORKER_H
+//
+// Created by StatTark on 12.12.2020.
+//
+
+#ifndef PAYROLL_MANAGER_WORKER_H
+#define PAYROLL_MANAGER_WORKER_H
+
 
 #include "title.h"
 
-class JuniorWorker : public Title
+class Manager : public Title
 {
 private:
     int tId;
@@ -13,7 +18,7 @@ private:
 
 public:
 
-    JuniorWorker(int id, std::string job_Title, double sumHours, double per_HourCost)
+    Manager(int id, std::string job_Title, double sumHours, double per_HourCost)
     {
         tId = id;
         jobTitle = job_Title;
@@ -28,5 +33,4 @@ public:
     void setPerHourCost(double  hour)  override;
 
 };
-
-#endif
+#endif //PAYROLL_MANAGER_WORKER_H

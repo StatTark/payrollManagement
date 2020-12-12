@@ -1,9 +1,13 @@
-#ifndef JUNIORWORKER_H
-#define JUNIORWORKER_H
+//
+// Created by StatTark on 12.12.2020.
+//
+
+#ifndef PAYROLL_INTERN_WORKER_H
+#define PAYROLL_INTERN_WORKER_H
 
 #include "title.h"
 
-class JuniorWorker : public Title
+class Intern : public Title
 {
 private:
     int tId;
@@ -13,7 +17,7 @@ private:
 
 public:
 
-    JuniorWorker(int id, std::string job_Title, double sumHours, double per_HourCost)
+    Intern(int id, std::string job_Title, double sumHours, double per_HourCost)
     {
         tId = id;
         jobTitle = job_Title;
@@ -29,4 +33,5 @@ public:
 
 };
 
-#endif
+
+#endif //PAYROLL_INTERN_WORKER_H
