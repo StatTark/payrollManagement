@@ -1,7 +1,7 @@
 #include "../headers/intern_worker.h"
 
 double Intern::getPerHourCost() const {
-    return 10.0;
+    return perHourCost;
 }
 double Intern::getSumOfHoursM() const {
     return 10.0;

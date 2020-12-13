@@ -7,16 +7,16 @@
 
 #include "departments.h"
 
+class Departments
+{
+};
 
-class Departments{};
-
-class Employee: public Person{
+class Employee : public Person
+{
 private:
-
     int emp_id;
-    Person person;
     Title *title;
-    Departments department;
+    Departments *department;
     double salary;
     std::string startDate;
     double sumOvertime;
@@ -25,7 +25,22 @@ private:
 public:
     //getter-setter
     //constructer
-
+    Employee(int emp_i,
+             Title *titl,
+             Departments *departmen,
+             double salar,
+             std::string startDat,
+             double sumOvertim,
+             std::string timeOfFir)
+    {
+        emp_id = emp_i;
+        title = titl;
+        department = departmen;
+        salary = salar;
+        startDate = startDat;
+        sumOvertime = sumOvertim;
+        timeOfFire = timeOfFir;
+    }
 };
 
 #endif //PAYROLL_EMPLOYEE_H
