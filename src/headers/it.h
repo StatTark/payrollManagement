@@ -5,7 +5,7 @@
 
 class IT : public Department
 {
-private:
+protected:
     int depId;
     std::string depName;
     int managerId;

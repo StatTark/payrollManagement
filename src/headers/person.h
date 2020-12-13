@@ -20,13 +20,15 @@ public:
            std::string phoneNumbe,
            std::string addres,
            std::string emai ) {
-               name = nam;
-               dateOfBirth = dateOfBirt;
-               gender = gende;
-               phoneNumber = phoneNumbe;
+               name = nam,
+               dateOfBirth = dateOfBirt,
+               gender = gende,
+               phoneNumber = phoneNumbe,
                address = addres;
                email = emai;
            }
+
+    Person() = default;
     //getter - setter
 };
 

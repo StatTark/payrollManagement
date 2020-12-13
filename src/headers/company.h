@@ -10,7 +10,7 @@
 class Company{
 public:
         std::string companyName;
-        std::list<Department> departmans;
+        std::list<Department*> departmans;
 
 
 
@@ -18,7 +18,7 @@ public:
             companyName = company_Name;
         };
 
-        void addDepartman(Department department){
+        void addDepartman(Department *department){
             departmans.push_back(department);
         }
         //remove de koyulabilir.

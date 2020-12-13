@@ -14,19 +14,22 @@ class Departments
 class Employee : public Person
 {
 private:
-    int emp_id;
-    Title *title;
-    Departments *department;
-    double salary;
+    int emp_id{};
+    Title *title{};
+    Person person;
+    Departments *department{};
+    double salary{};
     std::string startDate;
-    double sumOvertime;
+    double sumOvertime{};
     std::string timeOfFire;
 
 public:
     //getter-setter
     //constructer
+    Employee()  =default;
     Employee(int emp_i,
              Title *titl,
+             Person perso,
              Departments *departmen,
              double salar,
              std::string startDat,
@@ -35,12 +38,16 @@ public:
     {
         emp_id = emp_i;
         title = titl;
+        person = perso;
         department = departmen;
         salary = salar;
         startDate = startDat;
         sumOvertime = sumOvertim;
         timeOfFire = timeOfFir;
     }
+
+
+
 };
 
 #endif //PAYROLL_EMPLOYEE_H
