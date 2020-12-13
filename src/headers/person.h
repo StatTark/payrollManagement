@@ -14,6 +14,7 @@ private:
 
     //CONSTRUCTOR
 public:
+    Person()=default;
     Person(std::string nam,
            std::string dateOfBirt,
            std::string gende,
@@ -28,6 +29,7 @@ public:
                email = emai;
            }
     //getter - setter
+    std::string getName() {return name;};
 };
 
 #endif //PAYROLL_PERSON_H

@@ -1,15 +1,15 @@
 #include "../headers/it.h"
 
-int IT::getDepId() const
+int IT::getDepId() const 
 {
     return depId;
 }
-std::string IT::getDepName() const
+std::string IT::getDepName() const 
 {
     return depName;
 }
 
-int IT::getManagerId() const
+int IT::getManagerId() const 
 {
     return managerId;
 }

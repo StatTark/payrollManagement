@@ -13,7 +13,7 @@ private:
     bool increaseSalary(int employee_id, double rate_of_rise);
     // Bir departmandaki herkesin maasina zam yapma
     // Parametre olarak zam yapilacak departmani ve % kac zam yapilacagini aliyor
-    bool increaseSpeDepSalary(Department department, double rate_of_rise);
+    bool increaseSpeDepSalary(Departments *departments, double rate_of_rise);
     // Sirketteki ayni isi yapanlara zam yapma fonksiyonu
     // Parametre olarak title pointer'i (JuniorWorker, SeniorWorker yollanacak) ve
     // zam orani alir.
@@ -35,7 +35,7 @@ private:
     bool bonusPaymentToEmployee(int employee_id, double payment_amount);
     // Bir departmana ikramiye vermek icin kullanilan fonksiyon
     // Ikramiye verilecek departman'i ve ikramiye miktarini parametre olarak alir
-    bool bonusPaymentToDepartment(Department department, double payment_amount);
+    bool bonusPaymentToDepartments(Departments departments, double payment_amount);
     // Ayni seviyede calisanlara ikramiye vermek icin kullanilan fonksiyon
     // Title pointer parametresi (JuniorWorker, SeniorWorker ...) ve ikramiye miktarini parametre olarak alir
     bool bonusPaymentToSameTitles(Title *title, double payment_amount);
@@ -45,13 +45,13 @@ private:
     bool paySalarys();
     // Yeni bir calisan alindiysa sisteme giren fonksiyon
     // Parametre olarak ise girdigi departman ve kisisel bilgilerini aliyor
-    bool addEmployee(Department target_department, Employee employee);
+    bool addEmployee(Departments target_departments, Employee employee);
     // Calisani isten cikartmak icin kullanilan fonksiyon
     bool fireEmployee(int employee_id);
     // Departmanlari listeleyen fonksiyon
-    void showDepartments();
+    void showDepartmentss();
     // Departmandaki calisanlari gosteren fonksiyon
-    void showDepartmentEmployees();
+    void showDepartmentsEmployees();
     // Ayni seviyedeki calisanlari listeler
     void showSameTitleEmployees();
     // Sirketteki departmanlari departmanlarda calisan kisi sayisini

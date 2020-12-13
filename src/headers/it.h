@@ -3,7 +3,7 @@
 
 #include "departments.h"
 
-class IT : public Department
+class IT : public Departments
 {
 private:
     int depId;
@@ -20,15 +20,15 @@ public:
         employeList = empList;
     }
     //getters
-    virtual int getDepId() const override;
-    virtual std::string getDepName() const override;
-    virtual int getManagerId() const override;
-    virtual std::list<Employee> getEmployeeList() const override;
+    int getDepId() const override;
+    std::string getDepName() const override;
+    int getManagerId() const override;
+    std::list<Employee> getEmployeeList() const override;
     //setters
-    virtual void setDepId(int id) override;
-    virtual void setDepName(std::string name) override;
+    void setDepId(int id) override;
+    void setDepName(std::string name) override;
     //change manager
-    virtual void setManagerId(int managerId) override;
+    void setManagerId(int managerId) override;
 };
 
 #endif

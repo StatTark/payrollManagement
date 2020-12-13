@@ -1,12 +1,9 @@
+#ifndef PAYROLL_Departments_H
+#define PAYROLL_Departments_H
 
-#ifndef PAYROLL_DEPARTMENTS_H
-#define PAYROLL_DEPARTMENTS_H
-
-#include <string>
-#include <list>
 #include "employee.h"
-
-class Department
+#include <list>
+class Departments
 {
 
 public:
@@ -23,4 +20,4 @@ public:
     //constructor
 };
 
-#endif //PAYROLL_DEPARTMENTS_H
+#endif //PAYROLL_Departments_H
