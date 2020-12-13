@@ -15,7 +15,7 @@ private:
     double perHourCost;
 
 public:
-
+    SeniorWorker()=default;
     SeniorWorker(int id, std::string job_Title, double sumHours, double per_HourCost)
     {
         tId = id;
