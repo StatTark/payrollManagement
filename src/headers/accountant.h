@@ -13,7 +13,7 @@ private:
     bool increaseSalary(int employee_id, double rate_of_rise);
     // Bir departmandaki herkesin maasina zam yapma
     // Parametre olarak zam yapilacak departmani ve % kac zam yapilacagini aliyor
-    bool increaseSpeDepSalary(Departments *departments, double rate_of_rise);
+    bool increaseSpeDepSalary(Departments departments, double rate_of_rise);
     // Sirketteki ayni isi yapanlara zam yapma fonksiyonu
     // Parametre olarak title pointer'i (JuniorWorker, SeniorWorker yollanacak) ve
     // zam orani alir.

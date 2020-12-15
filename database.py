@@ -9,17 +9,20 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-with open("C:/Users/StatTark/CLionProjects/payroll/cmake-build-debug/filename.txt","r+") as f:
+with open("C:/Users/StatTark/CLionProjects/payroll/cmake-build-debug/databaseCollaborator.txt","r+") as f:
     okuma =  f.read()
-    print(okuma +" (Sql sorgusu)")
+    #print(okuma +" (Sql sorgusu)")
     mycursor.execute(okuma,)
     result = mycursor.fetchall()
+
     f.truncate(0) #dosya içeriği siler
-    with open("C:/Users/StatTark/CLionProjects/payroll/cmake-build-debug/filename.txt","a")as c:
+    with open("C:/Users/StatTark/CLionProjects/payroll/cmake-build-debug/databaseCollaborator.txt","a")as c:
         for i in result:
-            print(i,"\n")
-            c.write(str(i))
+            for k in i:
+                c.write(str(k)+" ")
+            c.write("< ")
             c.write("\n")
+
 
 
 

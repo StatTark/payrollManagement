@@ -7,6 +7,7 @@
 #include "departments.h"
 
 class Departments;
+
 class Employee : public Person
 {
 private:
@@ -23,7 +24,6 @@ public:
     //getters
     int getEmployeeId() { return emp_id; }
     Person getPerson() { return person; }
-    // Departments getDepartments() {return department;}
     //setters
     //constructer
     Employee() = default;
@@ -45,9 +45,17 @@ public:
         sumOvertime = sum;
         timeOfFire = finish;
     }
-
-
 };
 
+/*
+: person(person),
+                                   title(titl),
+                                   departments(depertmen),
+                                   emp_id(id),
+                                   salary(sal),
+                                   sumOvertime(sum),
+                                   startDate(startDate),
+                                   timeOfFire(finish)
+*/
 
 #endif //PAYROLL_EMPLOYEE_H

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream>
+#include <vector>
 #include <string>
 
 #include "src/headers/company.h"
@@ -11,14 +11,17 @@
 #include "src/headers/senior_worker.h"
 #include "src/headers/it.h"
 
+#include "src/headers/database.h"
+
 int main() {
     //Header paramelerine referans verilecek
-    Title *title;
+
+    /*Title *title;
     title = new SeniorWorker(12,"senior",2.0,3.0);
-    
+
     Departments *dep;
     std::list<Employee> kek = {};
-    dep = new IT(1,"IT boi",14,kek); 
+    dep = new IT(1,"IT boi",14,kek);
 
     Person person = Person("Pelin Asude","1090-20-12","female","123123","istanbul","deneme@");
 
@@ -28,7 +31,16 @@ int main() {
     //Employee emp = Employee(0,person,title,dep,208.0,"braaa",1.2,"pfff");
     Employee slave = Employee(person,*title,*dep,1,200.0,30.0,"kek","ueter");
 
-    std::cout<< slave.getPerson().getName() << "\n";
+    std::cout<< slave.getPerson().getName() << "\n";*/
+
+    DatabaseWorker sorgu = DatabaseWorker("SELECT * FROM `users`");
+
+    std::vector<std::string> database = sorgu.pullAnything();
+
+    for(int i = 0;i<database.max_size();i++){
+        std::cout<<database[i]<<std::endl;// '<' isaretini gorunce 2. satira gecmis demektir.
+    }
+    
 
     return 0;
 }
