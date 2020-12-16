@@ -33,9 +33,11 @@ int main() {
 
     std::cout<< slave.getPerson().getName() << "\n";*/
 
-    DatabaseWorker sorgu = DatabaseWorker("SELECT * FROM `users`");
+    DatabaseWorker sorgu = DatabaseWorker("INSERT INTO `users`( `name`, `username`) VALUES ('deneme','deneme2')"); //Insert
+    DatabaseWorker sorgu2 = DatabaseWorker("UPDATE `users` SET `name`='rauf' WHERE id=1"); //Update
+    DatabaseWorker sorgu3 = DatabaseWorker("DELETE FROM `users` WHERE id=1"); //delete
+    std::vector<std::string> database = sorgu3.doAnything();
 
-    std::vector<std::string> database = sorgu.pullAnything();
 
     for(int i = 0;i<database.max_size();i++){
         std::cout<<database[i]<<std::endl;// '<' isaretini gorunce 2. satira gecmis demektir.
