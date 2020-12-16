@@ -30,6 +30,7 @@ public:
            }
     //getter - setter
     std::string getName() {return name;};
+    void setName(std::string i_name) {name = i_name;};
 };
 
 #endif //PAYROLL_PERSON_H

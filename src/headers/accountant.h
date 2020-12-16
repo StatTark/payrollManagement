@@ -4,7 +4,7 @@
 #include "title.h"
 #include "departments.h"
 #include "employee.h"
-class Accountant : public Title
+class Accountant 
 {
 private:
     // Zam yapma fonksiyonu
@@ -35,7 +35,7 @@ private:
     bool bonusPaymentToEmployee(int employee_id, double payment_amount);
     // Bir departmana ikramiye vermek icin kullanilan fonksiyon
     // Ikramiye verilecek departman'i ve ikramiye miktarini parametre olarak alir
-    bool bonusPaymentToDepartments(Departments departments, double payment_amount);
+    bool bonusPaymentToDepartments(Departments *departments, double payment_amount);
     // Ayni seviyede calisanlara ikramiye vermek icin kullanilan fonksiyon
     // Title pointer parametresi (JuniorWorker, SeniorWorker ...) ve ikramiye miktarini parametre olarak alir
     bool bonusPaymentToSameTitles(Title *title, double payment_amount);
@@ -45,7 +45,7 @@ private:
     bool paySalarys();
     // Yeni bir calisan alindiysa sisteme giren fonksiyon
     // Parametre olarak ise girdigi departman ve kisisel bilgilerini aliyor
-    bool addEmployee(Departments target_departments, Employee employee);
+    bool addEmployee(Departments *target_departments, Employee employee);
     // Calisani isten cikartmak icin kullanilan fonksiyon
     bool fireEmployee(int employee_id);
     // Departmanlari listeleyen fonksiyon
@@ -60,12 +60,7 @@ private:
     void showCompanyStats();
 
 public:
-    Accountant();
-    ~Accountant();
-
-    std::string getTitle() const override;
-    double getSumOfHoursM() const override;
-    double getPerHourCost() const override;
+    Accountant()=default;
 };
 
 #endif

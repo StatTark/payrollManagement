@@ -3,6 +3,8 @@
 
 #include "employee.h"
 #include <list>
+
+class Employee;
 class Departments
 {
 
@@ -11,7 +13,7 @@ public:
     virtual int getDepId() const = 0;
     virtual std::string getDepName() const = 0;
     virtual int getManagerId() const = 0;
-    virtual std::list<Employee> getEmployeeList() const = 0;
+    virtual std::list<Employee*> getEmployeeList() const = 0;
     //setters
     virtual void setDepId(int id)=0;
     virtual void setDepName(std::string name)=0;
