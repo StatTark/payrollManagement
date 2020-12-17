@@ -13,20 +13,10 @@
 
 int main()
 {   
-    Employee slave = Employee();
-    slave.setName("yolo brah");
-    std::cout << slave.getName() << "\n";
-    // DatabaseWorker sorgu = DatabaseWorker("INSERT INTO `users`( `name`, `username`) VALUES ('deneme','deneme2')"); //Insert
-    // DatabaseWorker sorgu2 = DatabaseWorker("UPDATE `users` SET `name`='rauf' WHERE id=1");                         //Update
-    // DatabaseWorker sorgu3 = DatabaseWorker("DELETE FROM `users` WHERE id=2");       
-    // DatabaseWorker sorgu4 = DatabaseWorker("SELECT * FROM users;");                               //delete
-    // std::vector<std::vector<std::string>> database = sorgu4.doAnything();
+    Accountant acc = Accountant();
 
-    // for (int i = 0; i < database.max_size(); i++)
-    // {
-    //     std::cout << "id :"<<database[i][0] <<" date: " << database[i][3]<<"\n";
-    //     // '<' isaretini gorunce 2. satira gecmis demektir.
-    // }
+    acc.showDepartmentsEmployees(1);
+
 
     return 0;
 }

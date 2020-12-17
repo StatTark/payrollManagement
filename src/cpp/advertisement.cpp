@@ -1,4 +1,4 @@
-#include "advertisement.h"
+#include "../headers/advertisement.h"
 
 int Advertisement::getDepId() const 
 {
@@ -14,7 +14,7 @@ int Advertisement::getManagerId() const
     return managerId;
 }
 
-std::list<Employee> Advertisement::getEmployeeList() const
+std::list<Employee*> Advertisement::getEmployeeList() const
 {
     return employeList;
 }

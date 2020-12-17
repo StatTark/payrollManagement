@@ -9,10 +9,10 @@ private:
     int depId;
     std::string depName;
     int managerId;
-    std::list<Employee> employeList;
+    std::list<Employee*> employeList;
 
 public:
-    Purchasing(int id, std::string name, int manager_id, std::list<Employee> empList)
+    Purchasing(int id, std::string name, int manager_id, std::list<Employee*> empList)
     {
         depId = id;
         depName = name;
@@ -23,7 +23,7 @@ public:
     int getDepId() const override;
     std::string getDepName() const override;
     int getManagerId() const override;
-    std::list<Employee> getEmployeeList() const override;
+    std::list<Employee*> getEmployeeList() const override;
     //setters
     void setDepId(int id) override;
     void setDepName(std::string name) override;

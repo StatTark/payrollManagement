@@ -14,7 +14,7 @@ int HumanRes::getManagerId() const
     return managerId;
 }
 
-std::list<Employee> HumanRes::getEmployeeList() const
+std::list<Employee*> HumanRes::getEmployeeList() const
 {
     return employeList;
 }

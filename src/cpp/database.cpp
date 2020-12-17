@@ -1,6 +1,6 @@
 #include "../headers/database.h"
 
-std::vector<std::vector<std::string>> DatabaseWorker::doAnything()
+std::vector<std::vector<std::string>> DatabaseWorker::exec_query(std::string query)
 {
     std::vector<std::vector<std::string>> result;
     std::string myText;

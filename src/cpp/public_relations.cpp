@@ -14,7 +14,7 @@ int PUBLIC_RELATIONS::getManagerId() const
     return managerId;
 }
 
-std::list<Employee> PUBLIC_RELATIONS::getEmployeeList() const
+std::list<Employee*> PUBLIC_RELATIONS::getEmployeeList() const
 {
     return employeList;
 }

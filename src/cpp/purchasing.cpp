@@ -14,7 +14,7 @@ int Purchasing::getManagerId() const
     return managerId;
 }
 
-std::list<Employee> Purchasing::getEmployeeList() const
+std::list<Employee*> Purchasing::getEmployeeList() const
 {
     return employeList;
 }

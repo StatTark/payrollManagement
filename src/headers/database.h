@@ -10,10 +10,10 @@ class DatabaseWorker{
 public:
     std::string query;
 
-    DatabaseWorker(std::string queryy){query = queryy;}
+    DatabaseWorker()=default;
 
 
-    std::vector<std::vector<std::string>> doAnything();
+    std::vector<std::vector<std::string>> exec_query(std::string query);
 
 
 };
