@@ -87,7 +87,7 @@ void ui()
 
 void depPage(Departments *dep)
 {
-    std::cout << "|    " << dep->getDepName() << " Page\n";
+    std::cout << "\n\n|    " << dep->getDepName() << " Page\n\n";
     int rate;
     while (true)
     {
@@ -173,8 +173,9 @@ void depPage(Departments *dep)
         }
         case 5:
         {
-            // TODO: addemployee fonksiyonunun ici dolacak
-            addEmployee();
+            // Gecerli departmana calisan eklemek isteniyorsa
+            // bu fonksiyon kullanilir
+            addEmployee(dep);
         }
 
         case 6:
@@ -220,7 +221,17 @@ void showDepEmployees(Departments *dep)
         }
         case 2:
         {
-            // TODO: Maas arttirma fonksiyonu adapte edilecek
+            int emp_id;
+            double rise_rate;
+            std::cout << "|    Enter employee's id : ";
+            std::cin>>emp_id;
+            std::cout<<"\n";
+            std::cout << "|    Enter the rate of rise (%) :";
+            std::cin>>rise_rate;
+            if (acc.increaseSalary(emp_id,rise_rate))
+                std::cout << "Process successfull\n";
+            else
+                std::cout << "Process not successfull\n";
             break;
         }
         case 3:
@@ -229,7 +240,7 @@ void showDepEmployees(Departments *dep)
             // kadar odeme yapiliyor.
             int emp_id;
             double payment_amount;
-            std::cout << "Enter the employee id :";
+            std::cout << "Enter the employee's id :";
             std::cin >> emp_id;
             std::cout << "Enter the payment amount ($) :\n";
             std::cin >> payment_amount;
@@ -268,5 +279,93 @@ void showDepEmployees(Departments *dep)
         }
     }
 }
-// TODO: ici dolacak
-void addEmployee(){}
+
+void addEmployee(Departments *dep)
+{
+    // Veri tabanina calisan bilgilerini eklemek icin
+    // emp objesinin gerekli member'larini kullanicidan
+    // alip set ediyoruz.
+    Employee emp = Employee();
+    // Person class'i icin gerekli bilgiler
+    std::string name;
+    std::string dob;
+    std::string gender;
+    std::string number;
+    std::string address;
+    std::string email;
+    // Person bilgilerin alinmasi
+    std::cout << "|    Enter the employee's name and last name : ";
+    std::cin >> name;
+    std::cout << "\n";
+    std::cout << "|    Enter the employee's date of birth : ";
+    std::cin >> dob;
+    std::cout << "\n";
+    std::cout << "|    Enter the employee's gender:";
+    std::cin >> gender;
+    std::cout << "\n";
+    std::cout << "|    Enter the employee's phone number:";
+    std::cin >> number;
+    std::cout << "\n";
+    std::cout << "|    Enter the employee's email:";
+    std::cin >> email;
+    std::cout << "\n";
+    std::cout << "|    Enter the employee's address:";
+    std::cin >> address;
+    std::cout << "\n";
+    // Bilgilerin set edilmesi
+    emp.setName(name);
+    emp.setDateOfBirth(dob);
+    emp.setGender(gender);
+    emp.setPhoneNumber(number);
+    emp.setAddress(address);
+    emp.setEmail(email);
+    // Title class'i icin gerekli bilgiler
+    double phc;
+    double whpm;
+    int t_ans;
+    // Title bilgisinin alinmasi
+    for (;;)
+    {
+        std::cout << "|    1 - Manager\n";
+        std::cout << "|    2 - Senior Worker\n";
+        std::cout << "|    3 - Junior Worker\n";
+        std::cout << "|    Choose one of the job positions [1-3]: ";
+        std::cin >> t_ans;
+        if (t_ans == 1)
+        {
+            emp.setTitle("Manager");
+            break;
+        }
+        else if (t_ans == 2)
+        {
+            emp.setTitle("Senior Worker");
+            break;
+        }
+        else if (t_ans == 3)
+        {
+            emp.setTitle("Junior Worker");
+            break;
+        }
+        else
+        {
+            std::cout << "Invalid key\n";
+            continue;
+        }
+    }
+    // Saatlik ucreti ve aylik toplam calisma saatinin alinmasi
+    std::cout << "|    Enter the hourly wage the employee will receive:";
+    std::cin >> phc;
+    std::cout << "\n";
+    std::cout << "|    Enter the employee's monthly working hours:";
+    std::cin >> whpm;
+    std::cout << "\n";
+    // Saatlik ucretin ve aylik toplam calisma saatinin eklenmesi
+    emp.setPerHourCost(phc);
+    emp.setSumOfHoursM(whpm);
+    // Eklenecegi departmanin id'sinin verilmesi
+    emp.setDepartmentId(dep->getDepId());
+    // Calisanin alacagi maasin set edilmesi
+    emp.setSalary(emp.getPerHourCost() * emp.getSumOfHoursM());
+    // Calisan database'e eklenir
+    acc.addEmployee(emp);
+}

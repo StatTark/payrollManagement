@@ -11,7 +11,7 @@ class Employee : public Person, public Title
 {
 private:
     int emp_id;
-    int department_id; // dep id
+    int department_id; 
     double salary;
     std::string startDate;
     double sumOvertime;

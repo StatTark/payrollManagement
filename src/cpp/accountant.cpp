@@ -201,8 +201,9 @@ bool Accountant::paySalarys()
 bool Accountant::addEmployee(Employee employee)
 {
 
-    std::string person_query = "INSERT INTO person (dateOfBirth, gender, phoneNumber, address, email)"
+    std::string person_query = "INSERT INTO person (name,dateOfBirth, gender, phoneNumber, address, email)"
                                "VALUES(" +
+                               employee.getName() + ',' +
                                employee.getDateOfBirth() + ',' +
                                employee.getGender() + ',' +
                                employee.getPhoneNumber() + ',' +
@@ -233,7 +234,7 @@ bool Accountant::addEmployee(Employee employee)
         return false;
     }
 
-    std::string addemployee_query = "INSERT INTO employees (empId, depId, titId, personId, startDate, sumOvertime, salary, timeOfFire) VALUES (" +
+    std::string addemployee_query = "INSERT INTO employees (depId, titId, personId, startDate, sumOvertime, salary, timeOfFire) VALUES (" +
                                     std::to_string(employee.getDepartmentId()) +
                                     titleIDResult[0][0] +
                                     employee.getStartDate() +

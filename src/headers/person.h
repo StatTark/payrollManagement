@@ -40,7 +40,13 @@ public:
     std::string getAddress(){return address;};
     std::string getEmail(){return email;};
     // setters
+    void setID(int i_id) {personID = i_id;};
     void setName(std::string i_name) {name = i_name;};
+    void setDateOfBirth(std::string i_dob) {dateOfBirth = i_dob;};
+    void setGender(std::string i_gender) {gender = i_gender;};
+    void setPhoneNumber(std::string i_num) {phoneNumber = i_num;};
+    void setAddress(std::string i_add) {address = i_add;};
+    void setEmail(std::string i_em) {email = i_em;};
 };
 
 #endif //PAYROLL_PERSON_H

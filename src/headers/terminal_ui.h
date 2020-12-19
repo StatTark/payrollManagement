@@ -22,6 +22,6 @@ void ui();
 void depPage(Departments *dep);
 
 void showDepEmployees(Departments *dep);
-void addEmployee();
+void addEmployee(Departments *dep);
 
 #endif

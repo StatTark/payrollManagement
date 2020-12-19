@@ -1,5 +1,6 @@
 #include "../headers/employee.h"
 
+
 double Employee::getPerHourCost() const
 {
     return this->per_hour_cost;
