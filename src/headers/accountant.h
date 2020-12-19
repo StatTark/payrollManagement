@@ -19,6 +19,7 @@ public:
     // Sirketteki ayni isi yapanlara zam yapma fonksiyonu
     // Parametre olarak title pointer'i (JuniorWorker, SeniorWorker yollanacak) ve
     // zam orani alir.
+    // TODO: departman parametresi eklenecek
     bool increaseTitleSalary(Title *title, double rate_of_rise);
     // Herkese zam yapma fonksiyonu
     // Zam oranini aliyor
@@ -40,6 +41,7 @@ public:
     bool bonusPaymentToDepartments(Departments *department, double payment_amount);
     // Ayni seviyede calisanlara ikramiye vermek icin kullanilan fonksiyon
     // Title pointer parametresi (JuniorWorker, SeniorWorker ...) ve ikramiye miktarini parametre olarak alir
+    // TODO: departman parametresi eklenecek
     bool bonusPaymentToSameTitles(Title *title, double payment_amount);
     // Bir calisanin maasi odenir
     bool paySalary(Employee employee);
@@ -58,6 +60,8 @@ public:
     void showDepartmentsEmployees(int depID);
     // Ayni seviyedeki calisanlari listeler
     void showSameTitleEmployees(std::string title);
+    // TODO: Departman istatistiklerini gosteren fonksiyon
+    void showDepartmentStats(Departments *department);
     // Sirketteki departmanlari departmanlarda calisan kisi sayisini
     // Departman giderlerini
     // Toplam vergi ve maas giderlerini gosterir.

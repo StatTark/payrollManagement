@@ -21,7 +21,7 @@ std::vector<std::vector<std::string>> DatabaseWorker::exec_query(std::string que
 
         for (auto ch : myText)
         {
-            if (ch == ' ')
+            if (ch == ',')
             {
                 temp.push_back(word);
                 word = "";

@@ -1,17 +1,6 @@
 #include "../headers/accountant.h"
 #include "../headers/database.h"
-
-void printDatas(std::vector<std::vector<std::string>> &vect)
-{
-    for (int i = 0; i < vect.size(); i++)
-    {
-        for (
-            auto it = vect[i].begin();
-            it != vect[i].end(); it++)
-            std::cout << *it << "\t";
-        std::cout << "\n";
-    }
-}
+#include "../headers/helpers.h"
 
 bool Accountant::increaseSalary(int employee_id, double rate_of_rise)
 {
@@ -46,6 +35,7 @@ bool Accountant::increaseSpeDepSalary(Departments *department, double rate_of_ri
 }
 
 bool Accountant::increaseTitleSalary(Title *title, double rate_of_rise)
+// TODO: departman parametresi eklenecek
 {
     std::string title_id;
     std::vector<std::vector<std::string>> titleIDResult;
@@ -150,6 +140,7 @@ bool Accountant::bonusPaymentToDepartments(Departments *department, double payme
 }
 
 bool Accountant::bonusPaymentToSameTitles(Title *title, double payment_amount)
+// TODO: departman parametresi eklenecek
 {
     std::string title_id;
     std::vector<std::vector<std::string>> titleIDResult;
@@ -293,13 +284,16 @@ void Accountant::showDepartments()
         std::cerr << "[ERROR] from Accountant::showDepartments\n";
         std::cerr << e.what() << '\n';
     }
-    std::cout<<"Department ID\tManager Name\tDepartment Name\n";
-    printDatas(departments);
+    int arr[] = {15, 12, 17};
+    std::cout << std::string(80,'-')<<"\n";
+    std::cout << "| Department ID" << std::string(18, ' ') << "Manager Name" << std::string(18, ' ') << "Department Name |\n";
+    std::cout << std::string(80,'-')<<"\n";
+    printDatas(departments, arr,80);
 }
 
 void Accountant::showDepartmentsEmployees(int depID)
-{   //SELECT p.name,t.titleName FROM  person p, employees e,titles t WHERE "+std::to_string(depID)"  = e.depId AND e.personId = p.personId AND t.titId = e.titId"
-    std::string selecet_department_employees = "SELECT p.name,t.titleName,e.sumOveritme,e.salary FROM  person p, employees e,titles t WHERE "+std::to_string(depID)+"  = e.depId AND e.personId = p.personId AND t.titId = e.titId";
+{
+    std::string selecet_department_employees = "SELECT e.empId,p.name,t.titleName,e.sumOveritme,e.salary FROM  person p, employees e,titles t WHERE " + std::to_string(depID) + "  = e.depId AND e.personId = p.personId AND t.titId = e.titId";
     std::vector<std::vector<std::string>> department_employees;
     try
     {
@@ -310,13 +304,14 @@ void Accountant::showDepartmentsEmployees(int depID)
         std::cerr << "[ERROR] from Accountant::showDepartmentsEmployees\n";
         std::cerr << e.what() << '\n';
     }
-
-    printDatas(department_employees);
+    int arr[] = {13, 4, 5, 21, 8};
+    std::cout << "| Employee ID" << std::string(18, ' ') << "Name" << std::string(18, ' ') << "Title" << std::string(18, ' ') << "Monthly overtime hour" << std::string(18, ' ') << "Salary |\n";
+    printDatas(department_employees, arr,133); 
 }
 
 void Accountant::showSameTitleEmployees(std::string title)
 {
-    std::string select_ste = "SELECT d.depName,p.name,t.titleName FROM departments d,person p,employees e, titles t WHERE t.titleName='"+title+"' AND e.titId=t.titId AND d.depId=e.depId AND p.personId=e.personId";
+    std::string select_ste = "SELECT d.depName,p.name,t.titleName FROM departments d,person p,employees e, titles t WHERE t.titleName='" + title + "' AND e.titId=t.titId AND d.depId=e.depId AND p.personId=e.personId";
     std::vector<std::vector<std::string>> ste_employees;
     try
     {
@@ -327,10 +322,12 @@ void Accountant::showSameTitleEmployees(std::string title)
         std::cerr << "[ERROR] from Accountant::showSameTitleEmployees\n";
         std::cerr << e.what() << '\n';
     }
-
-    printDatas(ste_employees);
+    int arr[] = {12, 4, 7};
+    std::cout << "| Department" << std::string(18, ' ') << "Name" << std::string(18, ' ') << "Title |\n";
+    printDatas(ste_employees, arr, 59);
 }
-
+// TODO: yazilacak fonksiyon
+void Accountant::showDepartmentStats(Departments *department){}
 void Accountant::showCompanyStats()
 {
     std::string com_name_query = "SELECT companyName FROM company";
@@ -357,7 +354,15 @@ void Accountant::showCompanyStats()
         std::cerr << "[ERROR] from Accountant::showCompanyStats\n";
         std::cerr << e.what() << '\n';
     }
-    com_name = db.exec_query(com_name_query)[0][0];
+    try
+    {
+        com_name = db.exec_query(com_name_query)[0][0];
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "[ERROR] from Accountant::showCompanyStats\n";
+        std::cerr << e.what() << '\n';
+    }
 
     double totalexpense = calcTotalExpense();
 
@@ -380,5 +385,7 @@ void Accountant::showPaymentLogs()
         std::cerr << "[ERROR] from Accountant::showPaymentLogs\n";
         std::cerr << e.what() << '\n';
     }
-    printDatas(logs);
+    int arr = 4;
+    std::cout << "Logs\n";
+    printDatas(logs, &arr,50); // 3. parametre degiscek
 }

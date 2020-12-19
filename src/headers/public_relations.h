@@ -6,19 +6,12 @@
 class PUBLIC_RELATIONS : public Departments
 {
 private:
-    int depId;
-    std::string depName;
+    int depId = 5;
+    std::string depName = "Public Relations";
     int managerId;
     std::list<Employee*> employeList;
 
 public:
-    PUBLIC_RELATIONS(int id, std::string name, int manager_id, std::list<Employee*> empList)
-    {
-        depId = id;
-        depName = name;
-        managerId = manager_id;
-        employeList = empList;
-    }
     //getters
     int getDepId() const override;
     std::string getDepName() const override;

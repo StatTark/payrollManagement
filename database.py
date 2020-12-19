@@ -22,6 +22,6 @@ with open("./databaseCollaborator.txt", "r+") as f:
         with open("./databaseCollaborator.txt", "a")as c:
             for i in result:
                 for k in i:
-                    c.write(str(k)+" ")
+                    c.write(str(k)+",")
                 c.write("\n")
         mycursor.close()
