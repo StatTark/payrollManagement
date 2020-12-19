@@ -282,8 +282,7 @@ bool Accountant::fireEmployee(int employee_id)
 void Accountant::showDepartments()
 {
 
-    std::string selecet_departments = "SELECT d.depId, p.name, d.depName FROM departments d, person p, employees e WHERE "
-    "d.depId = e.depId AND e.personId = p.personId";
+    std::string selecet_departments = "SELECT d.depId, p.name, d.depName FROM departments d, person p, employees e WHERE d.depId = e.depId AND e.personId = p.personId";
     std::vector<std::vector<std::string>> departments;
     try
     {
@@ -299,8 +298,8 @@ void Accountant::showDepartments()
 }
 
 void Accountant::showDepartmentsEmployees(int depID)
-{
-    std::string selecet_department_employees = "SELECT * FROM employees e WHERE e.depId=" + std::to_string(depID);
+{   //SELECT p.name,t.titleName FROM  person p, employees e,titles t WHERE "+std::to_string(depID)"  = e.depId AND e.personId = p.personId AND t.titId = e.titId"
+    std::string selecet_department_employees = "SELECT p.name,t.titleName,e.sumOveritme,e.salary FROM  person p, employees e,titles t WHERE "+std::to_string(depID)+"  = e.depId AND e.personId = p.personId AND t.titId = e.titId";
     std::vector<std::vector<std::string>> department_employees;
     try
     {
@@ -317,7 +316,7 @@ void Accountant::showDepartmentsEmployees(int depID)
 
 void Accountant::showSameTitleEmployees(std::string title)
 {
-    std::string select_ste = "SELECT * FROM employees e, titles t WHERE t.titleName=" + title + " AND e.titId=t.titleId";
+    std::string select_ste = "SELECT d.depName,p.name,t.titleName FROM departments d,person p,employees e, titles t WHERE t.titleName='"+title+"' AND e.titId=t.titId AND d.depId=e.depId AND p.personId=e.personId";
     std::vector<std::vector<std::string>> ste_employees;
     try
     {
@@ -334,8 +333,10 @@ void Accountant::showSameTitleEmployees(std::string title)
 
 void Accountant::showCompanyStats()
 {
-    std::string numof_deps_query = "SELECT COUNT(*) FROM depertments";
+    std::string com_name_query = "SELECT companyName FROM company";
+    std::string numof_deps_query = "SELECT COUNT(*) FROM departments";
     std::string numof_employees_query = "SELECT COUNT(*) FROM employees";
+    std::string com_name;
     std::string numof_deps;
     std::string numof_employees;
     try
@@ -356,11 +357,13 @@ void Accountant::showCompanyStats()
         std::cerr << "[ERROR] from Accountant::showCompanyStats\n";
         std::cerr << e.what() << '\n';
     }
+    com_name = db.exec_query(com_name_query)[0][0];
 
     double totalexpense = calcTotalExpense();
 
-    std::cout << "Total departments number :" + numof_deps + "\n";
-    std::cout << "Total employee number :" + numof_employees + "\n";
+    std::cout << "Company Name : " + com_name + "\n";
+    std::cout << "Total departments number : " + numof_deps + "\n";
+    std::cout << "Total employee number : " + numof_employees + "\n";
     std::cout << "Total Expense : " + std::to_string(totalexpense) + "$ \n";
 }
 
