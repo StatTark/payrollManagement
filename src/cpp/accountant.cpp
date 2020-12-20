@@ -21,7 +21,7 @@ bool Accountant::increaseSalary(int employee_id, double rate_of_rise)
 
 bool Accountant::increaseSpeDepSalary(Departments *department, double rate_of_rise)
 {
-    std::string query = "UPDATE employees set salary=salary*(100+" + std::to_string(rate_of_rise) + ")/100 WHERE depId=" + std::to_string(department->getDepId());
+    std::string query = "UPDATE employees SET salary=salary*(100+" + std::to_string(rate_of_rise) + ")/100 WHERE depId=" + std::to_string(department->getDepId());
     try
     {
         db.exec_query(query);
@@ -34,23 +34,15 @@ bool Accountant::increaseSpeDepSalary(Departments *department, double rate_of_ri
     return true;
 }
 
-bool Accountant::increaseTitleSalary(Title *title, double rate_of_rise)
-// TODO: departman parametresi eklenecek
+bool Accountant::increaseTitleSalary(Departments *dep, std::string title, double rate_of_rise)
+// TODO: fonk'u str title gore duzenle
 {
-    std::string title_id;
-    std::vector<std::vector<std::string>> titleIDResult;
-    std::string getTitleID_query = "SELECET titleId FROM titles WHERE titleName='" + title->getTitle() + "'";
-    try
-    {
-        titleIDResult = db.exec_query(getTitleID_query);
-        title_id = titleIDResult[0][0];
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << '\n';
-        return false;
-    }
-    std::string query = "UPDATE employees set salary=salary*(100+" + std::to_string(rate_of_rise) + ")/100 WHERE titId=" + title_id;
+    std::cout << title->getTitle()<<"\n";
+    std::cout << dep->getDepId()<<"\n";
+
+    std::string query = "UPDATE employees SET employees.salary=salary*(100+" + std::to_string(rate_of_rise) +
+                        ")/100 FROM title ON title.titId= employees.titId WHERE title.titleName=" + title->getTitle() +
+                        "AND employees.depId = " + std::to_string(dep->getDepId());
     try
     {
         db.exec_query(query);
@@ -65,7 +57,7 @@ bool Accountant::increaseTitleSalary(Title *title, double rate_of_rise)
 
 bool Accountant::increaseAllSalarys(double rate_of_rise)
 {
-    std::string query = "UPDATE employees set salary=salary*(100+" + std::to_string(rate_of_rise) + ")/100";
+    std::string query = "UPDATE employees SET salary=salary*(100+" + std::to_string(rate_of_rise) + ")/100";
     try
     {
         db.exec_query(query);
@@ -140,7 +132,7 @@ bool Accountant::bonusPaymentToDepartments(Departments *department, double payme
 }
 
 bool Accountant::bonusPaymentToSameTitles(Title *title, double payment_amount)
-// TODO: departman parametresi eklenecek
+// TODO: departman parametresi eklenecek, ya da silinecek
 {
     std::string title_id;
     std::vector<std::vector<std::string>> titleIDResult;
@@ -170,7 +162,7 @@ bool Accountant::bonusPaymentToSameTitles(Title *title, double payment_amount)
 
 bool Accountant::paySalary(int emp_id)
 {
-    std::string pay_query = "INSERT INTO payments (empId, payment) SELECT e.empId,e.salary FROM employees e WHERE e.empId="+std::to_string(emp_id);
+    std::string pay_query = "INSERT INTO payments (empId, payment) SELECT e.empId,e.salary FROM employees e WHERE e.empId=" + std::to_string(emp_id);
     try
     {
         db.exec_query(pay_query);
@@ -212,6 +204,7 @@ bool Accountant::addEmployee(Employee employee)
                                employee.getAddress() + ',' +
                                employee.getEmail() + ")";
 
+    std::cout << employee.getTitle()<<"********\n";
     std::string get_titleID_query = "SELECT titleId FROM titles WHERE titleName='" + employee.getTitle() + "'";
 
     std::vector<std::vector<std::string>> titleIDResult;
@@ -343,7 +336,7 @@ void Accountant::showDepartmentStats(Departments *department)
         empc = std::stoi(db.exec_query(emp_count)[0][0]);
         man_info = db.exec_query(manager_infos);
         std::cout << "|    Manager ID        Manager Name\n";
-        std::cout << "|    " << man_info[0][0] << std::string(8 + 10 - man_info[0][0].length(),' ') << man_info[0][1] << "\n";
+        std::cout << "|    " << man_info[0][0] << std::string(8 + 10 - man_info[0][0].length(), ' ') << man_info[0][1] << "\n";
         std::cout << "|    Number of employees working in the department: " << empc << "\n";
         std::cout << "|    Total salary expenses of employees working in the department: " << ts << "\n";
     }

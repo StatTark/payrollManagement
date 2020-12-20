@@ -16,6 +16,7 @@ private:
     std::string startDate;
     double sumOvertime;
     std::string timeOfFire;
+    
 
 public:
     //getters

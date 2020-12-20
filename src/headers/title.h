@@ -8,6 +8,7 @@ protected:
     std::string title;
     double per_hour_cost;
     double workHour_per_month;
+
 public:
     virtual std::string getTitle() const = 0;
     virtual double getSumOfHoursM() const = 0;
