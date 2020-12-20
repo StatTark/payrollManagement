@@ -319,6 +319,7 @@ void addEmployee(Departments *dep)
     std::string email;
     // Person bilgilerin alinmasi
     std::cout << "|    Enter the employee's name and last name : ";
+    // TODO: std::getline kullanilacak
     std::cin >> name;
     std::cout << "\n";
     std::cout << "|    Enter the employee's date of birth : ";
@@ -334,6 +335,7 @@ void addEmployee(Departments *dep)
     std::cin >> email;
     std::cout << "\n";
     std::cout << "|    Enter the employee's address:";
+    // TODO: std::getline kullanilacak
     std::cin >> address;
     std::cout << "\n";
     // Bilgilerin set edilmesi

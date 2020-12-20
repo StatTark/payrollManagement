@@ -194,7 +194,7 @@ bool Accountant::paySalarys()
 
 bool Accountant::addEmployee(Employee employee)
 {
-
+    // TODO: query'ler kontrol edilecek
     std::string person_query = "INSERT INTO person (name,dateOfBirth, gender, phoneNumber, address, email)"
                                "VALUES(" +
                                employee.getName() + ',' +
