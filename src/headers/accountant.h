@@ -44,7 +44,7 @@ public:
     // TODO: departman parametresi eklenecek
     bool bonusPaymentToSameTitles(Title *title, double payment_amount);
     // Bir calisanin maasi odenir
-    bool paySalary(Employee employee);
+    bool paySalary(int emp_id);
     // Tum calisanlarin maas odemelerini yapan fonksiyon
     bool paySalarys();
     // Yapilan gecmis odemeleri listeler

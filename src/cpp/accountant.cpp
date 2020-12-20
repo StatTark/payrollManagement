@@ -168,9 +168,9 @@ bool Accountant::bonusPaymentToSameTitles(Title *title, double payment_amount)
     return true;
 }
 
-bool Accountant::paySalary(Employee employee)
+bool Accountant::paySalary(int emp_id)
 {
-    std::string pay_query = "INSERT INTO payments (empId, payment) VALUES(" + std::to_string(employee.getEmployeeId()) + "," + std::to_string(employee.getSalary()) + ")";
+    std::string pay_query = "INSERT INTO payments (empId, payment) SELECT e.empId,e.salary FROM employees e WHERE e.empId="+std::to_string(emp_id);
     try
     {
         db.exec_query(pay_query);
@@ -180,6 +180,7 @@ bool Accountant::paySalary(Employee employee)
         std::cerr << e.what() << '\n';
         return false;
     }
+    std::cout << "|    Payment has been made.\n";
     return true;
 }
 
@@ -195,6 +196,7 @@ bool Accountant::paySalarys()
         std::cerr << e.what() << '\n';
         return false;
     }
+    std::cout << "|    Payments has been made.\n";
     return true;
 }
 
@@ -286,10 +288,10 @@ void Accountant::showDepartments()
         std::cerr << e.what() << '\n';
     }
     int arr[] = {15, 12, 17};
-    std::cout << std::string(80,'-')<<"\n";
+    std::cout << std::string(80, '-') << "\n";
     std::cout << "| Department ID" << std::string(18, ' ') << "Manager Name" << std::string(18, ' ') << "Department Name |\n";
-    std::cout << std::string(80,'-')<<"\n";
-    printDatas(departments, arr,80);
+    std::cout << std::string(80, '-') << "\n";
+    printDatas(departments, arr, 80);
 }
 
 void Accountant::showDepartmentsEmployees(int depID)
@@ -307,7 +309,7 @@ void Accountant::showDepartmentsEmployees(int depID)
     }
     int arr[] = {13, 4, 5, 21, 8};
     std::cout << "| Employee ID" << std::string(18, ' ') << "Name" << std::string(18, ' ') << "Title" << std::string(18, ' ') << "Monthly overtime hour" << std::string(18, ' ') << "Salary |\n";
-    printDatas(department_employees, arr,133); 
+    printDatas(department_employees, arr, 133);
 }
 
 void Accountant::showSameTitleEmployees(std::string title)
@@ -327,8 +329,30 @@ void Accountant::showSameTitleEmployees(std::string title)
     std::cout << "| Department" << std::string(18, ' ') << "Name" << std::string(18, ' ') << "Title |\n";
     printDatas(ste_employees, arr, 59);
 }
-// TODO: yazilacak fonksiyon
-void Accountant::showDepartmentStats(Departments *department){}
+void Accountant::showDepartmentStats(Departments *department)
+{
+    std::string total_salary_query = "SELECT SUM(salary) FROM employees WHERE depId=" + std::to_string(department->getDepId());
+    std::string emp_count = "SELECT COUNT(*) FROM employees WHERE depId=" + std::to_string(department->getDepId());
+    std::string manager_infos = "SELECT e.empId, p.name FROM employees e, person p, departments d WHERE e.personId = p.personId AND d.depId = e.depId AND d.managerId = e.empId AND e.depId=" + std::to_string(department->getDepId());
+    double ts;
+    int empc;
+    std::vector<std::vector<std::string>> man_info;
+    try
+    {
+        ts = std::stod(db.exec_query(total_salary_query)[0][0]);
+        empc = std::stoi(db.exec_query(emp_count)[0][0]);
+        man_info = db.exec_query(manager_infos);
+        std::cout << "|    Manager ID        Manager Name\n";
+        std::cout << "|    " << man_info[0][0] << std::string(8 + 10 - man_info[0][0].length(),' ') << man_info[0][1] << "\n";
+        std::cout << "|    Number of employees working in the department: " << empc << "\n";
+        std::cout << "|    Total salary expenses of employees working in the department: " << ts << "\n";
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+
 void Accountant::showCompanyStats()
 {
     std::string com_name_query = "SELECT companyName FROM company";
@@ -388,5 +412,5 @@ void Accountant::showPaymentLogs()
     }
     int arr = 4;
     std::cout << "Logs\n";
-    printDatas(logs, &arr,50); // 3. parametre degiscek
+    printDatas(logs, &arr, 50); // 3. parametre degiscek
 }

@@ -13,7 +13,8 @@ void ui()
         std::cout << "|    4 - Show Advertisement details\n";
         std::cout << "|    5 - Show Public Relations department details\n";
         std::cout << "|    6 - Show general statics\n";
-        std::cout << "|    7 - Quit\n";
+        std::cout << "|    7 - Pay all salarys\n";
+        std::cout << "|    8 - Quit\n";
         std::cout << "|    Enter the action number :";
         std::cin >> value;
         // Secilen departman objesi olusturulup depPage sayfasina parametre verilerek
@@ -70,6 +71,12 @@ void ui()
         }
         case 7:
         {
+            // Tum calisanlara odeme yapiliyor
+            acc.paySalarys();
+            break;
+        }
+        case 8:
+        {
             // Exit ile uygulamadan direk cikiyor
             exit(0);
             break;
@@ -113,9 +120,7 @@ void depPage(Departments *dep)
         }
         case 2:
         {
-            // Departmanin istatistiklerini gosteren fonksiyon cagriliyor
             std::cout << std::string(5, '\n');
-            // TODO: Fonksiyonu cpp file da tanimlamak lazim
             acc.showDepartmentStats(dep);
             break;
         }
@@ -216,7 +221,10 @@ void showDepEmployees(Departments *dep)
         {
         case 1:
         {
-            // TODO: Maas odeme fonksiyonu adapte edilecek
+            int id;
+            std::cout << "|    Enter the employee's id: ";
+            std::cin>> id;
+            acc.paySalary(id);
             break;
         }
         case 2:
