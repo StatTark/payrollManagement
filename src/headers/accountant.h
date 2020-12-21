@@ -42,7 +42,7 @@ public:
     // Ayni seviyede calisanlara ikramiye vermek icin kullanilan fonksiyon
     // Title pointer parametresi (JuniorWorker, SeniorWorker ...) ve ikramiye miktarini parametre olarak alir
     // TODO: departman parametresi eklenecek, ya da silinecek
-    bool bonusPaymentToSameTitles(Title *title, double payment_amount);
+    bool bonusPaymentToSameTitles(Title *title, Departments *departmentdouble, double payment_amount);
     // Bir calisanin maasi odenir
     bool paySalary(int emp_id);
     // Tum calisanlarin maas odemelerini yapan fonksiyon

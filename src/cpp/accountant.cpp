@@ -36,8 +36,8 @@ bool Accountant::increaseSpeDepSalary(Departments *department, double rate_of_ri
 
 bool Accountant::increaseTitleSalary(Departments *dep, std::string title, double rate_of_rise)
 {
-    std::string query = "UPDATE employees SET employees.salary=employees.salary*(100+" + std::to_string(rate_of_rise) + ")/100"+
-                        "FROM title t INNER JOIN employees e ON t.titId = e.titId AND t.titleName='"+title+"' AND e.depId="+std::to_string(dep->getDepId());
+    std::string query = "UPDATE employees SET employees.salary=employees.salary*(100+" + std::to_string(rate_of_rise) + ")/100" +
+                        "FROM title t INNER JOIN employees e ON t.titId = e.titId AND t.titleName='" + title + "' AND e.depId=" + std::to_string(dep->getDepId());
     try
     {
         db.exec_query(query);
@@ -126,13 +126,17 @@ bool Accountant::bonusPaymentToDepartments(Departments *department, double payme
     return true;
 }
 
-bool Accountant::bonusPaymentToSameTitles(Title *title, double payment_amount)
+bool Accountant::bonusPaymentToSameTitles(Title *title, Departments *department, double payment_amount)
 // TODO: departman parametresi eklenecek, ya da silinecek
 {
     std::string title_id;
     std::vector<std::vector<std::string>> titleIDResult;
+    std::vector<std::vector<std::string>> depIDResult;
     std::string getTitleID_query = "SELECET titleId FROM titles WHERE titleName='" + title->getTitle() + "'";
-    std::string bonusPayToSameTitle_query = "INSERT INTO payments (empId, payment) SELECT e.empId," + std::to_string(payment_amount) + " FROM employees e titles t WHERE e.titId=t.titleId AND t.titleName ='" + title->getTitle() + "'";
+    std::string getDepID_query = "SELECET depId FROM departments WHERE depName='" + std::to_string(department->getDepId()) + "'";
+    titleIDResult = db.exec_query(getTitleID_query);
+    depIDResult = db.exec_query(getDepID_query);
+    std::string bonusPayToSameTitle_query = "INSERT INTO payments (empId, payment) SELECT e.empId," + std::to_string(payment_amount) + " FROM employees e, WHERE e.titId=" + titleIDResult[0][0] + "AND  e.depId = " + depIDResult[0][0] + "";
     try
     {
         titleIDResult = db.exec_query(getTitleID_query);
@@ -189,31 +193,20 @@ bool Accountant::paySalarys()
 
 bool Accountant::addEmployee(Employee employee)
 {
-    // TODO: query'ler kontrol edilecek
     std::string person_query = "INSERT INTO person (name,dateOfBirth, gender, phoneNumber, address, email)"
-                               "VALUES(" +
-                               employee.getName() + ',' +
-                               employee.getDateOfBirth() + ',' +
-                               employee.getGender() + ',' +
-                               employee.getPhoneNumber() + ',' +
-                               employee.getAddress() + ',' +
-                               employee.getEmail() + ")";
+                               "VALUES("
+                               "'" +
+                               employee.getName() + "'," +
+                               "'" + employee.getDateOfBirth() + "'," +
+                               "'" + employee.getGender() + "'," +
+                               "'" + employee.getPhoneNumber() + "'," +
+                               "'" + employee.getAddress() + "'," +
+                               "'" + employee.getEmail() + "\')";
 
-    std::cout << employee.getTitle()<<"********\n";
-    std::string get_titleID_query = "SELECT titleId FROM titles WHERE titleName='" + employee.getTitle() + "'";
-
-    std::vector<std::vector<std::string>> titleIDResult;
-
-    try
-    {
-        titleIDResult = db.exec_query(get_titleID_query);
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << '\n';
-        return false;
-    }
-
+    std::string get_titleID_query = "SELECT titId FROM titles WHERE titleName='" + employee.getTitle() + "'";
+    std::string get_personID_query = "SELECT personId FROM person WHERE name='" + employee.getName() + "'";
+    std::string titleId;
+    std::string personId;
     try
     {
         db.exec_query(person_query);
@@ -224,15 +217,27 @@ bool Accountant::addEmployee(Employee employee)
         return false;
     }
 
-    std::string addemployee_query = "INSERT INTO employees (depId, titId, personId, startDate, sumOvertime, salary, timeOfFire) VALUES (" +
-                                    std::to_string(employee.getDepartmentId()) +
-                                    titleIDResult[0][0] +
-                                    employee.getStartDate() +
-                                    std::to_string(employee.getSumOfHoursM()) +
-                                    std::to_string(employee.getSalary()) +
-                                    employee.getTimeOffFire() +
-                                    ")";
+    try
+    {
+        titleId = db.exec_query(get_titleID_query)[0][0];
+        personId = db.exec_query(get_personID_query)[0][0];
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+        return false;
+    }
 
+    std::string salary = std::to_string(employee.getSalary());
+    int dot_pos = salary.find('.');
+    salary = salary.substr(0, dot_pos + 3);
+    std::string addemployee_query = "INSERT INTO employees (depId, titId, personId,sumOvertime, salary) VALUES (" +
+                                    std::to_string(employee.getDepartmentId()) + "," +
+                                    titleId + "," +
+                                    personId + "," +
+                                    std::to_string(employee.getSumOfHoursM()) + "," +
+                                    salary +
+                                    ")";
     try
     {
         db.exec_query(addemployee_query);
