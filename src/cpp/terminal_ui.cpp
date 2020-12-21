@@ -168,6 +168,7 @@ void depPage(Departments *dep)
                 case 3:
                 {
                     title = "Junior Worker";
+                    control = false;
                     break;
                 }
                 default:

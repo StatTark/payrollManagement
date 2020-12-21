@@ -35,14 +35,9 @@ bool Accountant::increaseSpeDepSalary(Departments *department, double rate_of_ri
 }
 
 bool Accountant::increaseTitleSalary(Departments *dep, std::string title, double rate_of_rise)
-// TODO: fonk'u str title gore duzenle
 {
-    std::cout << title->getTitle()<<"\n";
-    std::cout << dep->getDepId()<<"\n";
-
-    std::string query = "UPDATE employees SET employees.salary=salary*(100+" + std::to_string(rate_of_rise) +
-                        ")/100 FROM title ON title.titId= employees.titId WHERE title.titleName=" + title->getTitle() +
-                        "AND employees.depId = " + std::to_string(dep->getDepId());
+    std::string query = "UPDATE employees SET employees.salary=employees.salary*(100+" + std::to_string(rate_of_rise) + ")/100"+
+                        "FROM title t INNER JOIN employees e ON t.titId = e.titId AND t.titleName='"+title+"' AND e.depId="+std::to_string(dep->getDepId());
     try
     {
         db.exec_query(query);
