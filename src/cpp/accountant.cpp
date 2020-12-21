@@ -35,14 +35,14 @@ bool Accountant::increaseSpeDepSalary(Departments *department, double rate_of_ri
 }
 
 bool Accountant::increaseTitleSalary(Departments *dep, std::string title, double rate_of_rise)
-// TODO: fonk'u str title gore duzenle
+// TODO: fonk'u str title gore duzenle -->duzenlendi
 {
-    std::cout << title->getTitle()<<"\n";
+    std::cout << title<<"\n";
     std::cout << dep->getDepId()<<"\n";
 
-    std::string query = "UPDATE employees SET employees.salary=salary*(100+" + std::to_string(rate_of_rise) +
-                        ")/100 FROM title ON title.titId= employees.titId WHERE title.titleName=" + title->getTitle() +
-                        "AND employees.depId = " + std::to_string(dep->getDepId());
+
+    std::string query = "UPDATE employees INNER JOIN titles ON employees.titId = titles.titId AND employees.depId = " + std::to_string(dep->getDepId())+" AND titles.titleName='"+ title + "' SET salary = salary * (100+" + std::to_string(rate_of_rise) +")/100";
+    //UPDATE employees INNER JOIN titles ON employees.titId = titles.titId AND employees.depId = 1 AND titles.titleName="Senior Worker" SET salary = salary * (100+10)/100
     try
     {
         db.exec_query(query);
@@ -131,13 +131,17 @@ bool Accountant::bonusPaymentToDepartments(Departments *department, double payme
     return true;
 }
 
-bool Accountant::bonusPaymentToSameTitles(Title *title, double payment_amount)
+bool Accountant::bonusPaymentToSameTitles(Title *title,Departments *department, double payment_amount)
 // TODO: departman parametresi eklenecek, ya da silinecek
 {
     std::string title_id;
     std::vector<std::vector<std::string>> titleIDResult;
+    std::vector<std::vector<std::string>> depIDResult;
     std::string getTitleID_query = "SELECET titleId FROM titles WHERE titleName='" + title->getTitle() + "'";
-    std::string bonusPayToSameTitle_query = "INSERT INTO payments (empId, payment) SELECT e.empId," + std::to_string(payment_amount) + " FROM employees e titles t WHERE e.titId=t.titleId AND t.titleName ='" + title->getTitle() + "'";
+    std::string getDepID_query = "SELECET depId FROM departments WHERE depName='" + std::to_string(department->getDepId()) + "'";
+    titleIDResult = db.exec_query(getTitleID_query);
+    depIDResult = db.exec_query(getDepID_query);
+    std::string bonusPayToSameTitle_query = "INSERT INTO payments (empId, payment) SELECT e.empId," + std::to_string(payment_amount) + " FROM employees e, WHERE e.titId="+titleIDResult[0][0]+"AND  e.depId = "+depIDResult[0][0]+"";
     try
     {
         titleIDResult = db.exec_query(getTitleID_query);
@@ -194,7 +198,7 @@ bool Accountant::paySalarys()
 
 bool Accountant::addEmployee(Employee employee)
 {
-    // TODO: query'ler kontrol edilecek
+
     std::string person_query = "INSERT INTO person (name,dateOfBirth, gender, phoneNumber, address, email)"
                                "VALUES(" +
                                employee.getName() + ',' +
