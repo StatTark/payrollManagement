@@ -3,15 +3,15 @@
 
 double Employee::getPerHourCost() const
 {
-    return this->per_hour_cost;
+    return per_hour_cost;
 }
 double Employee::getSumOfHoursM() const
 {
-    return this->sumOvertime;
+    return sumOvertime;
 }
 std::string Employee::getTitle() const
 {
-    return this->title;
+    return title;
 }
 
 int Employee::getEmployeeId() const
@@ -46,17 +46,17 @@ std::string Employee::getTimeOffFire() const
 
 void Employee::setTitle(std::string i_title)
 {
-    this->title = i_title;
+    title = i_title;
 }
 
 void Employee::setPerHourCost(double hour)
 {
-    this->per_hour_cost = hour;
+    per_hour_cost = hour;
 }
 
 void Employee::setSumOfHoursM(double hour)
 {
-    this->sumOvertime = hour;
+    sumOvertime = hour;
 }
 
 void Employee::setEmployeId(int i_id){

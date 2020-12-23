@@ -20,7 +20,7 @@ public:
     // Parametre olarak title pointer'i (JuniorWorker, SeniorWorker yollanacak) ve
     // zam orani alir.
     // TODO: departman parametresi eklenecek
-    bool increaseTitleSalary(Title *title, double rate_of_rise);
+    bool increaseTitleSalary(Departments *dep,std::string title, double rate_of_rise);
     // Herkese zam yapma fonksiyonu
     // Zam oranini aliyor
     bool increaseAllSalarys(double rate_of_rise);
@@ -39,19 +39,15 @@ public:
     // Bir departmana ikramiye vermek icin kullanilan fonksiyon
     // Ikramiye verilecek departman'i ve ikramiye miktarini parametre olarak alir
     bool bonusPaymentToDepartments(Departments *department, double payment_amount);
-    // Ayni seviyede calisanlara ikramiye vermek icin kullanilan fonksiyon
-    // Title pointer parametresi (JuniorWorker, SeniorWorker ...) ve ikramiye miktarini parametre olarak alir
-    // TODO: departman parametresi eklenecek
-    bool bonusPaymentToSameTitles(Title *title, double payment_amount);
     // Bir calisanin maasi odenir
-    bool paySalary(Employee employee);
+    bool paySalary(int emp_id);
     // Tum calisanlarin maas odemelerini yapan fonksiyon
     bool paySalarys();
     // Yapilan gecmis odemeleri listeler
     void showPaymentLogs();
     // Yeni bir calisan alindiysa sisteme giren fonksiyon
     // Parametre olarak ise girdigi departman ve kisisel bilgilerini aliyor
-    bool addEmployee(Employee employee);
+    bool addEmployee(Employee &employee);
     // Calisani isten cikartmak icin kullanilan fonksiyon
     bool fireEmployee(int employee_id);
     // Departmanlari listeleyen fonksiyon
@@ -60,7 +56,7 @@ public:
     void showDepartmentsEmployees(int depID);
     // Ayni seviyedeki calisanlari listeler
     void showSameTitleEmployees(std::string title);
-    // TODO: Departman istatistiklerini gosteren fonksiyon
+    // Departman istatistiklerini gosteren fonksiyon
     void showDepartmentStats(Departments *department);
     // Sirketteki departmanlari departmanlarda calisan kisi sayisini
     // Departman giderlerini

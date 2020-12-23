@@ -18,3 +18,17 @@ void printDatas(std::vector<std::vector<std::string>> &vect, int *sizes, int wid
                   << std::string(width, '-') << "\n";
     }
 }
+
+void showArt()
+{
+    std::string myText;
+
+    std::ifstream MyReadFile("art.txt");
+
+    while (getline(MyReadFile, myText))
+    {
+        std::cout << myText << "\n";
+    }
+    MyReadFile.close();
+
+}

@@ -13,7 +13,8 @@ void ui()
         std::cout << "|    4 - Show Advertisement details\n";
         std::cout << "|    5 - Show Public Relations department details\n";
         std::cout << "|    6 - Show general statics\n";
-        std::cout << "|    7 - Quit\n";
+        std::cout << "|    7 - Pay all salarys\n";
+        std::cout << "|    8 - Quit\n";
         std::cout << "|    Enter the action number :";
         std::cin >> value;
         // Secilen departman objesi olusturulup depPage sayfasina parametre verilerek
@@ -70,6 +71,12 @@ void ui()
         }
         case 7:
         {
+            // Tum calisanlara odeme yapiliyor
+            acc.paySalarys();
+            break;
+        }
+        case 8:
+        {
             // Exit ile uygulamadan direk cikiyor
             exit(0);
             break;
@@ -91,39 +98,40 @@ void depPage(Departments *dep)
     int rate;
     while (true)
     {
-        int answer;
+        int m_answer;
         std::cout << "|    1 - Show employees\n";
         std::cout << "|    2 - Show department statics\n";
         std::cout << "|    3 - Increase all employee salarys\n";
-        // TODO: Daha duzgun bir sey yazmak lazim
         std::cout << "|    4 - Increase the title salarys\n";
-        std::cout << "|    5 - Add employee\n";
-        std::cout << "|    6 - Back to main menu\n";
+        std::cout << "|    5 - Pay bonuses to all employees: \n";
+        // TODO: showlogs eklenecek
+        std::cout << "|    6 - Add employee\n";
+        std::cout << "|    7 - Back to main menu\n";
         std::cout << "|    Enter the action number :";
-        std::cin >> answer;
-        switch (answer)
+        std::cin >> m_answer;
+        switch (m_answer)
         {
         case 1:
         {
             // Calisanlari ve calisanlar uzerinde yapilacak islemlerin
             // oldugu sayfayi aciyor
-            std::cout << std::string(5, '\n');
+            std::cout << std::string(3, '\n');
             showDepEmployees(dep);
+            std::cout << std::string(3, '\n');
             break;
         }
         case 2:
         {
-            // Departmanin istatistiklerini gosteren fonksiyon cagriliyor
-            std::cout << std::string(5, '\n');
-            // TODO: Fonksiyonu cpp file da tanimlamak lazim
+            std::cout << std::string(3, '\n');
             acc.showDepartmentStats(dep);
+            std::cout << std::string(3, '\n');
             break;
         }
         case 3:
         {
             // Departmandaki tum calisanlarin maaslarini %n miktarda
             // arttiran kisim input alinip fonksiyon cagriliyor
-            std::cout << std::string(5, '\n');
+            std::cout << std::string(3, '\n');
             std::cout << "|    Enter the increase rate (%) : ";
             std::cin >> rate;
             acc.increaseSpeDepSalary(dep, rate);
@@ -135,9 +143,9 @@ void depPage(Departments *dep)
             // zam yapan kisim input alarak pozisyon bilgisini
             // ve % artis miktarini alip muhasebe fonksiyonu
             // cagriliyor
-            std::cout << std::string(5, '\n');
+            std::cout << std::string(3, '\n');
             int answer;
-            Title *title;
+            std::string title;
             bool control = true;
             while (control)
             {
@@ -149,39 +157,57 @@ void depPage(Departments *dep)
                 switch (answer)
                 {
                 case 1:
-                    title->setTitle("Manager");
+                {
+                    title = "Manager";
                     control = false;
                     break;
+                }
                 case 2:
-                    title->setTitle("Senior Worker");
+                {
+                    title ="Senior Worker";
                     control = false;
                     break;
+                }
                 case 3:
-                    title->setTitle("Junior Worker");
+                {
+                    title = "Junior Worker";
                     control = false;
                     break;
+                }
                 default:
+                {
                     std::cout << "Invalid number\n";
                     break;
+                }
                 }
             }
             std::cout << "|\n";
             std::cout << "|    Enter the increase rate (%) : ";
             std::cin >> rate;
-            acc.increaseTitleSalary(title, rate);
+            acc.increaseTitleSalary(dep, title, rate);
             break;
         }
         case 5:
         {
+            // Ikramiye miktarini alip ilgili muhasebe fonksiyonunu
+            // cagiriyoruz.
+            double payment_amount;
+            std::cout << "|    Enter the payment amount ($) :";
+            std::cin >> payment_amount;
+            acc.bonusPaymentToDepartments(dep, payment_amount);
+        }
+        case 6:
+        {
             // Gecerli departmana calisan eklemek isteniyorsa
             // bu fonksiyon kullanilir
             addEmployee(dep);
+            break;
         }
 
-        case 6:
+        case 7:
         {
             // Geri ana menuye gecmek icin 'ui' fonksiyonu calistiriliyor
-            std::cout << std::string(5, '\n');
+            std::cout << std::string(3, '\n');
             ui();
             break;
         }
@@ -216,7 +242,10 @@ void showDepEmployees(Departments *dep)
         {
         case 1:
         {
-            // TODO: Maas odeme fonksiyonu adapte edilecek
+            int id;
+            std::cout << "|    Enter the employee's id: ";
+            std::cin >> id;
+            acc.paySalary(id);
             break;
         }
         case 2:
@@ -224,11 +253,11 @@ void showDepEmployees(Departments *dep)
             int emp_id;
             double rise_rate;
             std::cout << "|    Enter employee's id : ";
-            std::cin>>emp_id;
-            std::cout<<"\n";
+            std::cin >> emp_id;
+            std::cout << "\n";
             std::cout << "|    Enter the rate of rise (%) :";
-            std::cin>>rise_rate;
-            if (acc.increaseSalary(emp_id,rise_rate))
+            std::cin >> rise_rate;
+            if (acc.increaseSalary(emp_id, rise_rate))
                 std::cout << "Process successfull\n";
             else
                 std::cout << "Process not successfull\n";
@@ -295,9 +324,10 @@ void addEmployee(Departments *dep)
     std::string email;
     // Person bilgilerin alinmasi
     std::cout << "|    Enter the employee's name and last name : ";
-    std::cin >> name;
+    std::cin.ignore();
+    std::getline(std::cin,name);
     std::cout << "\n";
-    std::cout << "|    Enter the employee's date of birth : ";
+    std::cout << "|    Enter the employee's date of birth (yyyy-mm-dd) : ";
     std::cin >> dob;
     std::cout << "\n";
     std::cout << "|    Enter the employee's gender:";
@@ -310,7 +340,8 @@ void addEmployee(Departments *dep)
     std::cin >> email;
     std::cout << "\n";
     std::cout << "|    Enter the employee's address:";
-    std::cin >> address;
+    std::cin.ignore();
+    std::getline(std::cin,address);
     std::cout << "\n";
     // Bilgilerin set edilmesi
     emp.setName(name);
