@@ -39,10 +39,6 @@ public:
     // Bir departmana ikramiye vermek icin kullanilan fonksiyon
     // Ikramiye verilecek departman'i ve ikramiye miktarini parametre olarak alir
     bool bonusPaymentToDepartments(Departments *department, double payment_amount);
-    // Ayni seviyede calisanlara ikramiye vermek icin kullanilan fonksiyon
-    // Title pointer parametresi (JuniorWorker, SeniorWorker ...) ve ikramiye miktarini parametre olarak alir
-    // TODO: departman parametresi eklenecek, ya da silinecek
-    bool bonusPaymentToSameTitles(Title *title, Departments *departmentdouble, double payment_amount);
     // Bir calisanin maasi odenir
     bool paySalary(int emp_id);
     // Tum calisanlarin maas odemelerini yapan fonksiyon
@@ -51,7 +47,7 @@ public:
     void showPaymentLogs();
     // Yeni bir calisan alindiysa sisteme giren fonksiyon
     // Parametre olarak ise girdigi departman ve kisisel bilgilerini aliyor
-    bool addEmployee(Employee employee);
+    bool addEmployee(Employee &employee);
     // Calisani isten cikartmak icin kullanilan fonksiyon
     bool fireEmployee(int employee_id);
     // Departmanlari listeleyen fonksiyon

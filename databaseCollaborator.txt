@@ -1,1 +1,1 @@
-INSERT INTO employees (depId, titId, personId,sumOvertime, salary) VALUES (5,1,17,30.000000,750.00)
+90250.0000,

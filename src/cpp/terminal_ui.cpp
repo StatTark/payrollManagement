@@ -104,6 +104,7 @@ void depPage(Departments *dep)
         std::cout << "|    3 - Increase all employee salarys\n";
         std::cout << "|    4 - Increase the title salarys\n";
         std::cout << "|    5 - Pay bonuses to all employees: \n";
+        // TODO: showlogs eklenecek
         std::cout << "|    6 - Add employee\n";
         std::cout << "|    7 - Back to main menu\n";
         std::cout << "|    Enter the action number :";
@@ -116,12 +117,14 @@ void depPage(Departments *dep)
             // oldugu sayfayi aciyor
             std::cout << std::string(3, '\n');
             showDepEmployees(dep);
+            std::cout << std::string(3, '\n');
             break;
         }
         case 2:
         {
             std::cout << std::string(3, '\n');
             acc.showDepartmentStats(dep);
+            std::cout << std::string(3, '\n');
             break;
         }
         case 3:
@@ -324,7 +327,7 @@ void addEmployee(Departments *dep)
     std::cin.ignore();
     std::getline(std::cin,name);
     std::cout << "\n";
-    std::cout << "|    Enter the employee's date of birth : ";
+    std::cout << "|    Enter the employee's date of birth (yyyy-mm-dd) : ";
     std::cin >> dob;
     std::cout << "\n";
     std::cout << "|    Enter the employee's gender:";

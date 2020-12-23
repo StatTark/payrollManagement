@@ -126,39 +126,6 @@ bool Accountant::bonusPaymentToDepartments(Departments *department, double payme
     return true;
 }
 
-bool Accountant::bonusPaymentToSameTitles(Title *title, Departments *department, double payment_amount)
-// TODO: departman parametresi eklenecek, ya da silinecek
-{
-    std::string title_id;
-    std::vector<std::vector<std::string>> titleIDResult;
-    std::vector<std::vector<std::string>> depIDResult;
-    std::string getTitleID_query = "SELECET titleId FROM titles WHERE titleName='" + title->getTitle() + "'";
-    std::string getDepID_query = "SELECET depId FROM departments WHERE depName='" + std::to_string(department->getDepId()) + "'";
-    titleIDResult = db.exec_query(getTitleID_query);
-    depIDResult = db.exec_query(getDepID_query);
-    std::string bonusPayToSameTitle_query = "INSERT INTO payments (empId, payment) SELECT e.empId," + std::to_string(payment_amount) + " FROM employees e, WHERE e.titId=" + titleIDResult[0][0] + "AND  e.depId = " + depIDResult[0][0] + "";
-    try
-    {
-        titleIDResult = db.exec_query(getTitleID_query);
-        title_id = titleIDResult[0][0];
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << '\n';
-        return false;
-    }
-    try
-    {
-        db.exec_query(bonusPayToSameTitle_query);
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << '\n';
-        return false;
-    }
-    return true;
-}
-
 bool Accountant::paySalary(int emp_id)
 {
     std::string pay_query = "INSERT INTO payments (empId, payment) SELECT e.empId,e.salary FROM employees e WHERE e.empId=" + std::to_string(emp_id);
@@ -190,8 +157,7 @@ bool Accountant::paySalarys()
     std::cout << "|    Payments has been made.\n";
     return true;
 }
-
-bool Accountant::addEmployee(Employee employee)
+bool Accountant::addEmployee(Employee &employee)
 {
     std::string person_query = "INSERT INTO person (name,dateOfBirth, gender, phoneNumber, address, email)"
                                "VALUES("
@@ -289,7 +255,7 @@ void Accountant::showDepartments()
 
 void Accountant::showDepartmentsEmployees(int depID)
 {
-    std::string selecet_department_employees = "SELECT e.empId,p.name,t.titleName,e.sumOveritme,e.salary FROM  person p, employees e,titles t WHERE " + std::to_string(depID) + "  = e.depId AND e.personId = p.personId AND t.titId = e.titId";
+    std::string selecet_department_employees = "SELECT e.empId,p.name,t.titleName,e.sumOvertime,e.salary FROM  person p, employees e,titles t WHERE " + std::to_string(depID) + "  = e.depId AND e.personId = p.personId AND t.titId = e.titId";
     std::vector<std::vector<std::string>> department_employees;
     try
     {
