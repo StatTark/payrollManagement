@@ -1,41 +1,40 @@
 #include "../headers/database.h"
 
-std::vector<std::string> DatabaseWorker::pullAnything() {
-    std::vector<std::string> result;
+std::vector<std::vector<std::string>> DatabaseWorker::exec_query(std::string query)
+{
+    std::vector<std::vector<std::string>> result;
     std::string myText;
-    std::string myText2;
-    std::string myText3;
 
     std::ofstream MyFile("databaseCollaborator.txt");
     MyFile << query;
     MyFile.close();
 
-    std::string cmd = "python C:/Users/StatTark/CLionProjects/payroll/database.py";
+    std::string cmd = "python ./database.py";
     system(cmd.c_str());
 
     std::ifstream MyReadFile("databaseCollaborator.txt");
 
+    while (getline(MyReadFile, myText))
+    {
+        std::vector<std::string> temp;
+        std::string word;
 
-    while (getline (MyReadFile, myText)) {
-            myText2 += myText;
+        for (auto ch : myText)
+        {
+            if (ch == ',')
+            {
+                temp.push_back(word);
+                word = "";
+            }
+            else
+            {
+                word += ch;
+            }
+        }
+        result.push_back(temp);
     }
     MyReadFile.close();
 
-    for (auto  x : myText2){
-        if (x == ' '){
-            result.push_back(myText3);
-            myText3 = "";
-        }
-        else{
-            myText3 += x;
-        }
-    }
-    /*for(int i =0;i<result.max_size();i++){
-        std::cout<<result[i]<<std::endl; // '<' isaretini gorunce 2. satira gecmis demektir.
-    }*/
-
     return result;
-
-    }
-
+}
 

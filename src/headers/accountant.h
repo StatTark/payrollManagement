@@ -4,28 +4,31 @@
 #include "title.h"
 #include "departments.h"
 #include "employee.h"
-class Accountant : public Title
+#include "database.h"
+class Accountant 
 {
-private:
+public:
+    DatabaseWorker db = DatabaseWorker();
     // Zam yapma fonksiyonu
     // Zam yapilacak kisinin id'si ve %'de kac zam yapilacagini parametre olarak aliyor
     // Eger zam yapildiysa true yapilirken sikinti cikti ise false donuyor
     bool increaseSalary(int employee_id, double rate_of_rise);
     // Bir departmandaki herkesin maasina zam yapma
     // Parametre olarak zam yapilacak departmani ve % kac zam yapilacagini aliyor
-    bool increaseSpeDepSalary(Departments departments, double rate_of_rise);
+    bool increaseSpeDepSalary(Departments *department, double rate_of_rise);
     // Sirketteki ayni isi yapanlara zam yapma fonksiyonu
     // Parametre olarak title pointer'i (JuniorWorker, SeniorWorker yollanacak) ve
     // zam orani alir.
+    // TODO: departman parametresi eklenecek
     bool increaseTitleSalary(Title *title, double rate_of_rise);
     // Herkese zam yapma fonksiyonu
     // Zam oranini aliyor
     bool increaseAllSalarys(double rate_of_rise);
     // Sirketin odeyecegi vergilerin toplamini hesaplar
     // %8 KDV, %15 Yıllık gelir vergisi, %22 kurumlar vergisi
-    double calcTaxes();
+    // double calcTaxes();
     // Sirketin toplam giderleri hesaplanir
-    // Vergiler + Maaslar + Sigortalar (450 lira calisan basi sigorta odemesi)
+    // Vergiler + Maaslar 
     double calcTotalExpense();
     // Herkese ikramiye verme fonksiyonu
     // Verilecek ikramiye miktarini parametre olarak alir
@@ -35,37 +38,38 @@ private:
     bool bonusPaymentToEmployee(int employee_id, double payment_amount);
     // Bir departmana ikramiye vermek icin kullanilan fonksiyon
     // Ikramiye verilecek departman'i ve ikramiye miktarini parametre olarak alir
-    bool bonusPaymentToDepartments(Departments departments, double payment_amount);
+    bool bonusPaymentToDepartments(Departments *department, double payment_amount);
     // Ayni seviyede calisanlara ikramiye vermek icin kullanilan fonksiyon
     // Title pointer parametresi (JuniorWorker, SeniorWorker ...) ve ikramiye miktarini parametre olarak alir
+    // TODO: departman parametresi eklenecek
     bool bonusPaymentToSameTitles(Title *title, double payment_amount);
-    // Tum calisanlarin sigorta odemelerini yapan fonksiyon
-    bool payEnsures();
+    // Bir calisanin maasi odenir
+    bool paySalary(Employee employee);
     // Tum calisanlarin maas odemelerini yapan fonksiyon
     bool paySalarys();
+    // Yapilan gecmis odemeleri listeler
+    void showPaymentLogs();
     // Yeni bir calisan alindiysa sisteme giren fonksiyon
     // Parametre olarak ise girdigi departman ve kisisel bilgilerini aliyor
-    bool addEmployee(Departments target_departments, Employee employee);
+    bool addEmployee(Employee employee);
     // Calisani isten cikartmak icin kullanilan fonksiyon
     bool fireEmployee(int employee_id);
     // Departmanlari listeleyen fonksiyon
-    void showDepartmentss();
+    void showDepartments();
     // Departmandaki calisanlari gosteren fonksiyon
-    void showDepartmentsEmployees();
+    void showDepartmentsEmployees(int depID);
     // Ayni seviyedeki calisanlari listeler
-    void showSameTitleEmployees();
+    void showSameTitleEmployees(std::string title);
+    // TODO: Departman istatistiklerini gosteren fonksiyon
+    void showDepartmentStats(Departments *department);
     // Sirketteki departmanlari departmanlarda calisan kisi sayisini
     // Departman giderlerini
-    // Toplam vergi, sigorta, maas giderlerini gosterir.
+    // Toplam vergi ve maas giderlerini gosterir.
     void showCompanyStats();
 
-public:
-    Accountant();
-    ~Accountant();
 
-    std::string getTitle() const override;
-    double getSumOfHoursM() const override;
-    double getPerHourCost() const override;
+
+    Accountant()=default;
 };
 
 #endif

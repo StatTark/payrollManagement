@@ -1,7 +1,3 @@
-//
-// Created by StatTark on 15.12.2020.
-//
-
 #ifndef PAYROLL_DATABASE_H
 #define PAYROLL_DATABASE_H
 
@@ -14,10 +10,10 @@ class DatabaseWorker{
 public:
     std::string query;
 
-    DatabaseWorker(std::string queryy){query = queryy;}
+    DatabaseWorker()=default;
 
 
-    std::vector<std::string> pullAnything();
+    std::vector<std::vector<std::string>> exec_query(std::string query);
 
 
 };

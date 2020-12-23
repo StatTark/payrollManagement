@@ -1,13 +1,13 @@
-#ifndef IT_H
-#define IT_H
+#ifndef ADVERTISEMENT_H
+#define ADVERTISEMENT_H
 
 #include "departments.h"
 
-class IT : public Departments
+class Advertisement : public Departments
 {
 private:
-    int depId = 1;
-    std::string depName = "IT";
+    int depId = 4;
+    std::string depName = "Advertisement";
     int managerId;
     std::list<Employee*> employeList;
 

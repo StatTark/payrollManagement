@@ -14,7 +14,7 @@ int IT::getManagerId() const
     return managerId;
 }
 
-std::list<Employee> IT::getEmployeeList() const
+std::list<Employee*> IT::getEmployeeList() const
 {
     return employeList;
 }
