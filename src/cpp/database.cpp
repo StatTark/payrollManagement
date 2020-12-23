@@ -37,3 +37,4 @@ std::vector<std::vector<std::string>> DatabaseWorker::exec_query(std::string que
 
     return result;
 }
+

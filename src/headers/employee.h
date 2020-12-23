@@ -8,6 +8,7 @@
 
 class Departments;
 class Employee : public Person, public Title
+
 {
 private:
     int emp_id;
@@ -40,6 +41,4 @@ public:
     void setTimeOffFire(std::string i_finishDate) ;
     //constructer
     Employee() = default;
-};
-
 #endif //PAYROLL_EMPLOYEE_H
